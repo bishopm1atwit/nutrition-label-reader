@@ -6,18 +6,10 @@ function [out] = preprocess(img)
     Iflatfield = imflatfield(I,sigma);
     %increase contrast
     Iadjust = imadjust(Iflatfield);
-%     %gaussian low pass filter (from A4)
-%     FTOriginalImage = fftshift(fft2(Iadjust));
-%     filter = GLPF(FTOriginalImage, 40);
-%     filtered_image = FTOriginalImage.*filter;
-%     filtered_image = ifft2(ifftshift(filtered_image));
-%     filtered_image = real(filtered_image);
     
-    %convert to binary
-    BW = imbinarize(Iadjust);
-    %back to grayscale
-    uint8Image = uint8(255 * BW);
+    % Remove keypad background.
+    Icorrected = imtophat(I,strel('disk',15));
     
     %set as output
-    out = uint8Image;
+    out = Iadjust;
 end

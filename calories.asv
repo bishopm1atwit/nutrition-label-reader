@@ -1,0 +1,22 @@
+function calories(ocrtext, I)
+    regularExpr = 'Calories ';
+    for i = 5:1
+        for i
+            
+          
+        regularExpr = erase(regularExpr, '\d');
+        % Get bounding boxes around text that matches the regular expression
+        bboxes = locateText(ocrtext,regularExpr,'UseRegexp',true);
+        if not(isempty(bboxes))
+            break
+        end
+    end
+
+    digits = regexp(ocrtext.Text,regularExpr,'match');
+
+    % draw boxes around the digits
+    Idigits = insertObjectAnnotation(I,'rectangle',bboxes,digits);
+
+    figure; 
+    imshow(Idigits);
+end
