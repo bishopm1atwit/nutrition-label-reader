@@ -12,5 +12,5 @@ function [output] = performocr(processedImg)
     output = cellArrayText;
         
     %calories function gets calories and shows figure with bounding box
-    calories(ocrtxt, processedImg);
+    %calories(ocrtxt, processedImg);
 end
