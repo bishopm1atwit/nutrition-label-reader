@@ -18,22 +18,22 @@ function [output] = calories(cellArrayText)
             %extract numbers
             nums = regexp(calText,'[0-9]','Match');
             if size(nums) > 0
-                nums = strjoin(nums);
-                nums = strrep(nums,' ','');
+            nums = strjoin(nums);
+            nums = strrep(nums,' ','');
 
-                calText = 'Calories';
+            calText = 'Calories';
 
-                %add string with numbers to title string 'Calories' with space between
-                output = strcat(output, calText); 
-                output = sprintf('%s %s \n', output, nums);
+            %add string with numbers to title string 'Calories' with space between
+            output = strcat(output, calText); 
+            output = sprintf('%s %s \n', output, nums);
             else
-                output = sprintf('%s \n', 'Calories not found');
+                
             end
         else
-            output = sprintf('%s \n', 'Calories not found');
+            output = 'Calories not found';
         end
     else %Cal was not found in image
-        output = sprintf('%s \n', 'Calories not found');
+        output = 'Calories not found';
     end
 
     
