@@ -32,9 +32,13 @@ function [output] = cholesterol(cellArrayText)
 
             choltext = 'Cholesterol';
 
-            %add string with numbers to title string 'Cholesterol' with space between
-            output = sprintf('%s%s', output, choltext);
-            output = sprintf('%s %s%s \n', output, nums, 'mg');
+            if(strlength(nums) ~= 0)
+                %add string with numbers to title string 'Cholesterol' with space between
+                output = sprintf('%s%s', output, choltext);
+                output = sprintf('%s %s%s \n', output, nums, 'mg');
+            else
+                 output = sprintf('%s%s \n', output, 'Cholesterol not found');
+            end
         else
             output = sprintf('%s%s \n', output, 'Cholesterol not found');
         end

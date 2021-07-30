@@ -32,9 +32,13 @@ function [output] = carb(cellArrayText)
 
             carbtext = 'Total Carbohyrdrates';
 
-            %add string with numbers to title string 'carb' with space between
-            output = sprintf('%s%s', output, carbtext);
-            output = sprintf('%s %s%s \n', output, nums, 'g');
+            if(strlength(nums) ~= 0)
+                %add string with numbers to title string 'carb' with space between
+                output = sprintf('%s%s', output, carbtext);
+                output = sprintf('%s %s%s \n', output, nums, 'g');
+            else
+                output = sprintf('%s%s \n', output, 'Total Carbs not found');
+            end
         else
             output = sprintf('%s%s \n', output, 'Total Carbs not found');
         end

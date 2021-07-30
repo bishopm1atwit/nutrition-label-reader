@@ -32,9 +32,13 @@ function [output] = sodium(cellArrayText)
 
             sodiumtext = 'Sodium';
 
-            %add string with numbers to title string 'sodium' with space between
-            output = sprintf('%s%s', output, sodiumtext);
-            output = sprintf('%s %s%s \n', output, nums, 'g');
+            if(strlength(nums) ~= 0)
+                %add string with numbers to title string 'sodium' with space between
+                output = sprintf('%s%s', output, sodiumtext);
+                output = sprintf('%s %s%s \n', output, nums, 'mg');
+            else 
+                output = sprintf('%s%s \n', output, 'Sodium not found');
+            end
         else
             output = sprintf('%s%s \n', output, 'Sodium not found');
         end

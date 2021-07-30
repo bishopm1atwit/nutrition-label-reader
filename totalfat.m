@@ -32,9 +32,13 @@ function [output] = totalfat(cellArrayText)
 
             fattext = 'Total Fat';
 
-            %add string with numbers to title string 'Calories' with space between
-            output = sprintf('%s%s', output, fattext);
-            output = sprintf('%s %s%s \n', output, nums, 'g');
+            if(strlength(nums) ~= 0)
+                %add string with numbers to title string 'Calories' with space between
+                output = sprintf('%s%s', output, fattext);
+                output = sprintf('%s %s%s \n', output, nums, 'g');
+            else 
+                output = sprintf('%s%s \n', output, 'Total Fat not found');
+            end
         else
             output = sprintf('%s%s \n', output, 'Total Fat not found');
         end

@@ -9,6 +9,12 @@ function [output] = postprocess(cellArrayText)
     temp = totalfat(cellArrayText);
     output = sprintf('%s%s \n', output, temp);
     
+    temp = satfat(cellArrayText);
+    output = sprintf('%s\t%s \n', output, temp);
+    
+    temp = transfat(cellArrayText);
+    output = sprintf('%s\t%s \n', output, temp);
+    
     temp = cholesterol(cellArrayText);
     output = sprintf('%s%s \n', output, temp);
     
@@ -17,6 +23,12 @@ function [output] = postprocess(cellArrayText)
     
     temp = carb(cellArrayText);
     output = sprintf('%s%s \n', output, temp);
+    
+    temp = fiber(cellArrayText);
+    output = sprintf('%s\t%s \n', output, temp);
+    
+    temp = sugar(cellArrayText);
+    output = sprintf('%s\t%s \n', output, temp);
     
     temp = protein(cellArrayText);
     output = sprintf('%s%s \n', output, temp);

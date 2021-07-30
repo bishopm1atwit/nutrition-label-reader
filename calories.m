@@ -23,9 +23,13 @@ function [output] = calories(cellArrayText)
 
                 calText = 'Calories';
 
-                %add string with numbers to title string 'Calories' with space between
-                output = strcat(output, calText); 
-                output = sprintf('%s %s \n', output, nums);
+                if(strlength(nums) ~= 0)
+                    %add string with numbers to title string 'Calories' with space between
+                    output = strcat(output, calText); 
+                    output = sprintf('%s %s \n', output, nums);
+                else
+                   output = sprintf('%s \n', 'Calories not found');
+                end
             else
                 output = sprintf('%s \n', 'Calories not found');
             end
