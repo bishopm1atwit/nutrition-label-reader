@@ -4,7 +4,7 @@ function [output] = totalfat(cellArrayText)
     
     %total fat matches
     matches = ["tal f"; "tai f"];
-    cellArrayText
+    
     
     %extract cell containing total fat
     index = find(contains(cellArrayText, matches));
@@ -24,11 +24,20 @@ function [output] = totalfat(cellArrayText)
             fattext = erase(fattext,pat);
             pat = digitsPattern(1) + ("%");
             fattext = erase(fattext,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            fattext = regexprep(fattext,pat,'');
 
-            %extract numbers - %TODO need to omit the last number found
-            nums = regexp(fattext,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(fattext, "og") == 1)
+                nums = "0";
+            else
+                %extract numbers - %TODO need to omit the last number found
+                nums = regexp(fattext,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             fattext = 'Total Fat';
 

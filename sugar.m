@@ -4,7 +4,6 @@ function [output] = sugar(cellArrayText)
     
     %sugar matches
     matches = ["sugar"; "sug"];
-    cellArrayText
     
     %extract cell containing sugar
     index = find(contains(cellArrayText, matches));
@@ -24,11 +23,20 @@ function [output] = sugar(cellArrayText)
             sugar = erase(sugar,pat);
             pat = digitsPattern(1) + ("%");
             sugar = erase(sugar,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            sugar = regexprep(sugar,pat,'');
 
-            %extract numbers
-            nums = regexp(sugar,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(sugar, "og") == 1)
+                nums = "0";
+            else
+                %extract numbers
+                nums = regexp(sugar,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             sugar = 'Sugar';
 

@@ -4,7 +4,6 @@ function [output] = fiber(cellArrayText)
     
     %fiber matches
     matches = ["fiber"; "dietary"];
-    cellArrayText
     
     %extract cell containing fiber
     index = find(contains(cellArrayText, matches));
@@ -24,11 +23,20 @@ function [output] = fiber(cellArrayText)
             fiber = erase(fiber,pat);
             pat = digitsPattern(1) + ("%");
             fiber = erase(fiber,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            fiber = regexprep(fiber,pat,'');
 
-            %extract numbers
-            nums = regexp(fiber,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(fiber, "og") == 1)
+                nums = "0";
+            else
+                %extract numbers
+                nums = regexp(fiber,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             fiber = 'Dietary Fiber';
 

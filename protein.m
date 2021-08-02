@@ -4,7 +4,7 @@ function [output] = protein(cellArrayText)
     
     %protein matches
     matches = ["pro"; "tein"; "brat"];
-    cellArrayText
+    
     
     %extract cell containing protein
     index = find(contains(cellArrayText, matches));
@@ -24,11 +24,20 @@ function [output] = protein(cellArrayText)
             proteintext = erase(proteintext,pat);
             pat = digitsPattern(1) + ("%");
             proteintext = erase(proteintext,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            proteintext = regexprep(proteintext,pat,'');
 
-            %extract numbers
-            nums = regexp(proteintext,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(proteintext, "og") == 1)
+                nums = "0";
+            else
+                %extract numbers
+                nums = regexp(proteintext,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             proteintext = 'Protein';
 

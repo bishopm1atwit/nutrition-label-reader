@@ -4,7 +4,7 @@ function [output] = transfat(cellArrayText)
     
     %protein matches
     matches = ["trans"];
-    cellArrayText
+    
     
     %extract cell containing protein
     index = find(contains(cellArrayText, matches));
@@ -24,11 +24,20 @@ function [output] = transfat(cellArrayText)
             transfat = erase(transfat,pat);
             pat = digitsPattern(1) + ("%");
             transfat = erase(transfat,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            transfat = regexprep(transfat,pat,'');
 
-            %extract numbers
-            nums = regexp(transfat,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(transfat, "og") == 1)
+                nums = "0";
+            else
+                %extract numbers
+                nums = regexp(transfat,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             transfat = 'Trans Fat';
 

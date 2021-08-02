@@ -1,9 +1,12 @@
 function [output] = calories(cellArrayText)
     %init output
     output = '';
+    
+    %carb matches
+    matches = ["cal"; "ories"];
 
     %extract cell containing calories
-    index = find(contains(cellArrayText, 'cal'));
+    index = find(contains(cellArrayText, matches));
     if size(index) > 0
         calText = cellArrayText{index};
 
@@ -11,7 +14,7 @@ function [output] = calories(cellArrayText)
         C = splitlines(calText);
 
         %find element within new array that contains calories
-        index = find(contains(C, 'cal'));
+        index = find(contains(C, matches));
         if size(index) > 0
             calText = C{index};
 

@@ -4,7 +4,6 @@ function [output] = carb(cellArrayText)
     
     %carb matches
     matches = ["carb"; "hydrate"];
-    cellArrayText
     
     %extract cell containing carb
     index = find(contains(cellArrayText, matches));
@@ -24,11 +23,20 @@ function [output] = carb(cellArrayText)
             carbtext = erase(carbtext,pat);
             pat = digitsPattern(1) + ("%");
             carbtext = erase(carbtext,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            carbtext = regexprep(carbtext,pat,'');
 
-            %extract numbers
-            nums = regexp(carbtext,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(carbtext, "og") == 1)
+                nums = "0";
+            else
+                %extract numbers
+                nums = regexp(carbtext,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             carbtext = 'Total Carbohyrdrates';
 

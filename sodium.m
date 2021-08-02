@@ -4,7 +4,6 @@ function [output] = sodium(cellArrayText)
     
     %sodium matches
     matches = ["sod"; "ium"];
-    cellArrayText
     
     %extract cell containing sodium
     index = find(contains(cellArrayText, matches));
@@ -24,11 +23,20 @@ function [output] = sodium(cellArrayText)
             sodiumtext = erase(sodiumtext,pat);
             pat = digitsPattern(1) + ("%");
             sodiumtext = erase(sodiumtext,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            sodiumtext = regexprep(sodiumtext,pat,'');
 
-            %extract numbers
-            nums = regexp(sodiumtext,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(sodiumtext, "omg") == 1)
+                nums = "0";
+            else
+                %extract numbers
+                nums = regexp(sodiumtext,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             sodiumtext = 'Sodium';
 

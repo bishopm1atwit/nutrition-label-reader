@@ -4,7 +4,6 @@ function [output] = cholesterol(cellArrayText)
     
     %cholesterol matches
     matches = ["chol"; "erol"];
-    cellArrayText
     
     %extract cell containing cholesterol
     index = find(contains(cellArrayText, matches));
@@ -24,11 +23,20 @@ function [output] = cholesterol(cellArrayText)
             choltext = erase(choltext,pat);
             pat = digitsPattern(1) + ("%");
             choltext = erase(choltext,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            choltext = regexprep(choltext,pat,'');
 
-            %extract numbers
-            nums = regexp(choltext,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(choltext, "omg") == 1)
+                nums = "0";
+            else
+                %extract numbers
+                nums = regexp(choltext,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             choltext = 'Cholesterol';
 

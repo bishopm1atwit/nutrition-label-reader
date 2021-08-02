@@ -1,7 +1,4 @@
 function [output] = performocr(processedImg)
-
-    %ocr for only calories?
-    %ocrtxt = ocr(processedImg, 'CharacterSet','Calories0123456789','TextLayout','Block');
     
     %ocr for everything
     ocrtxt = ocr(processedImg);
@@ -11,6 +8,4 @@ function [output] = performocr(processedImg)
     end
     output = cellArrayText;
         
-    %calories function gets calories and shows figure with bounding box
-    %calories(ocrtxt, processedImg);
 end

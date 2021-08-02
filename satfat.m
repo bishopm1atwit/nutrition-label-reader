@@ -4,7 +4,7 @@ function [output] = satfat(cellArrayText)
     
     %saturated fat matches
     matches = ["sat"; "urated"];
-    cellArrayText
+    
     
     %extract cell containing saturated fat
     index = find(contains(cellArrayText, matches));
@@ -24,11 +24,20 @@ function [output] = satfat(cellArrayText)
             satfat = erase(satfat,pat);
             pat = digitsPattern(1) + ("%");
             satfat = erase(satfat,pat);
+            
+            %remove numbers after g
+            pat = 'g *\d+ *';
+            satfat = regexprep(satfat,pat,'');
 
-            %extract numbers
-            nums = regexp(satfat,'[0-9]','Match');
-            nums = strjoin(nums);
-            nums = strrep(nums,' ','');
+            %if contains O instead of 0, replace with 0
+            if(contains(satfat, "og") == 1)
+                nums = "0";
+            else
+                %extract numbers
+                nums = regexp(satfat,'[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
+            end
 
             satfat = 'Saturated Fat';
 
