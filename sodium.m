@@ -31,6 +31,11 @@ function [output] = sodium(cellArrayText)
             %if contains O instead of 0, replace with 0
             if(contains(sodiumtext, "omg") == 1)
                 nums = "0";
+            elseif contains(sodiumtext, digitsPattern + "." + digitsPattern) == 1
+                %extract numbers with decimal
+                nums = regexp(sodiumtext,'[0-9].[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
             else
                 %extract numbers
                 nums = regexp(sodiumtext,'[0-9]','Match');

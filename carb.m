@@ -31,6 +31,11 @@ function [output] = carb(cellArrayText)
             %if contains O instead of 0, replace with 0
             if(contains(carbtext, "og") == 1)
                 nums = "0";
+            elseif contains(carbtext, digitsPattern + "." + digitsPattern) == 1
+                %extract numbers with decimal
+                nums = regexp(carbtext,'[0-9].[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
             else
                 %extract numbers
                 nums = regexp(carbtext,'[0-9]','Match');

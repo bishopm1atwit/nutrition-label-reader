@@ -32,6 +32,11 @@ function [output] = protein(cellArrayText)
             %if contains O instead of 0, replace with 0
             if(contains(proteintext, "og") == 1)
                 nums = "0";
+            elseif contains(proteintext, digitsPattern + "." + digitsPattern) == 1
+                %extract numbers with decimal
+                nums = regexp(proteintext,'[0-9].[0-9]','Match');
+                nums = strjoin(nums);
+                nums = strrep(nums,' ','');
             else
                 %extract numbers
                 nums = regexp(proteintext,'[0-9]','Match');
