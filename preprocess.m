@@ -2,9 +2,11 @@ function [out] = preprocess(img)
     [x,y, numberOfColorChannels] = size(img);
     %convert to gray
     I = im2gray(img);
+    
     %flatten curved image
     sigma = 30;
     Iflatfield = imflatfield(I,sigma);
+    
     %increase contrast
     Iadjust = imadjust(Iflatfield);
     
